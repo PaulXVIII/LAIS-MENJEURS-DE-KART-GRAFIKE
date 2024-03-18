@@ -3,22 +3,25 @@ from game import Game
 
 pygame.init()
 
-pygame.display.set_caption("Arie Peauteure")
+pygame.display.set_caption("Notre RPG")
 screen = pygame.display.set_mode((1280, 720))
-background = pygame.image.load("sheeesh.jpg")
-background = pygame.transform.scale(background, (1280, 1280))
+background = pygame.image.load("hg.jpg")
+background = pygame.transform.scale(background, (1280, 720))
 menu = pygame.image.load("boutoniu.png")
 game = Game()
-x_bouton = 1280 - menu.get_width() / 2
-print(x_bouton)
-y_bouton = 720 - menu.get_height() / 2
-print(y_bouton)
+x_bouton = (1280 - menu.get_width()) / 2
+y_bouton = (720 - menu.get_height()) / 2
 running = True
 
+leave_menu = False
 while running:
-    screen.blit(background, (0, -100))
+    screen.blit(background, (0, 0))
     screen.blit(menu, (x_bouton, y_bouton))
-    screen.blit(game.player.image, game.player.rect)
+    if game.pressed.get(pygame.K_SPACE):
+        leave_menu = True
+
+    if leave_menu:  
+        screen.blit(game.player.image, game.player.rect)
 
 
     if game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:

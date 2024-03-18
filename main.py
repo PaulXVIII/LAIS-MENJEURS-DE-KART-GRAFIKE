@@ -6,14 +6,12 @@ pygame.init()
 pygame.display.set_caption("Arie Peauteure")
 screen = pygame.display.set_mode((1280, 720))
 
-background = pygame.image.load("backbrick.png")
-background = pygame.transform.scale(background, (1280, 720))
 game = Game()
 
 running = True
 
 while running:
-    screen.blit(background, (0, 0))
+    screen.fill((74, 65, 42))
     screen.blit(game.player.image, game.player.rect)
 
 

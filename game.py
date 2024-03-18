@@ -7,7 +7,7 @@ class Game:
 
     def __init__(self):
         self.player = Player()
-        self.multipla = Multipla()
+
    
         self.pressed = {
 

@@ -5,13 +5,14 @@ pygame.init()
 
 pygame.display.set_caption("Arie Peauteure")
 screen = pygame.display.set_mode((1280, 720))
-
+background = pygame.image.load("sheeesh.jpg")
+background = pygame.transform.scale(background, (1280, 1280))
 game = Game()
 
 running = True
 
 while running:
-    screen.fill((74, 65, 42))
+    screen.blit(background, (0, -100))
     screen.blit(game.player.image, game.player.rect)
 
 

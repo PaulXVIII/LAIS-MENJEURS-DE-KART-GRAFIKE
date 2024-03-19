@@ -1,6 +1,7 @@
 import pygame
 from game import Game
 from pygame.locals import *
+from time import monotonic
 import os
 
 
@@ -33,13 +34,13 @@ transparent = (0, 0, 0, 0)
 leave_menu = False
 transparent_surface = pygame.Surface((1280, 720), pygame.SRCALPHA)
 transparent_surface.fill((0, 0, 5, 3)) 
-
-
+constante_de_pesanteur = 0.2
+vitesse_chute = 0
 while running:
     screen.blit(background, (0, 0))
     screen.blit(menu, (x_bouton, y_bouton))
     screen.blit(title, (x_titre, y_titre))
-    
+    temps_actuel = monotonic()
     if not leave_menu:
         if zone1_rect.collidepoint(pygame.mouse.get_pos()):
             # Créer une surface semi-transparente pour la zone de collision
@@ -66,16 +67,23 @@ while running:
     if game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
         game.player.move_left()
 
-    if game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
+    elif game.pressed.get(pygame.K_RIGHT) and game.player.rect.x + game.player.rect.width < screen.get_width():
         game.player.move_right()
-
+    ''' j'ai mis les directions heut et bas en commentaires pour les supprimer plus tard car on en a pas besoin si on utilise le saut et la gravité
     if game.pressed.get(pygame.K_UP) and game.player.rect.y > 0:
         game.player.move_up()
 
     if game.pressed.get(pygame.K_DOWN) and game.player.rect.y + game.player.rect.height < screen.get_height():
         game.player.move_down()
-    
-    
+    '''
+    vitesse_chute += constante_de_pesanteur
+    game.player.rect.y += vitesse_chute
+    if game.pressed.get(pygame.K_SPACE) and not en_l_air: # le joueur ne peut sauter que quand il touche le sol 
+        vitesse_chute = -7
+        en_l_air = True # Permet de savoir si le joueur touche le sol (pour l'instant le bas de l'écran, mais au fur et à mesur ça sera les platerformes)
+    if game.player.rect.y + game.player.rect.height >= screen.get_height(): # évite qu'il tombre en dehors de l'écran, mais ça sera valable pour les plateformes
+        game.player.rect.y = screen.get_height() - game.player.rect.height
+        en_l_air = False
     manual_quit = False
     
     for event in pygame.event.get():
@@ -110,6 +118,6 @@ while running:
         screen.blit(game.player.image, game.player.rect)
         menu.fill((0, 0, 0, 0))
         title.fill((0, 0, 0, 0))
-        background.fill((0, 0, 0, 0))
+        background.fill((0, 148, 148, 0)) # j'ai changé la couleur pour que cela soit un peu plus gai
 
     pygame.display.flip()

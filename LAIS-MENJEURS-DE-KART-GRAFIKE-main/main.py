@@ -44,23 +44,23 @@ while running:
         if zone1_rect.collidepoint(pygame.mouse.get_pos()):
             # Créer une surface semi-transparente pour la zone de collision
             transparent_surface = pygame.Surface((zone1_rect.width, zone1_rect.height), pygame.SRCALPHA)
-            transparent_surface.fill((0, 0, 255, 64))  # Remplir avec du bleu semi-transparent
+            transparent_surface.fill((0, 0, 255, 32))  # Remplir avec du bleu semi-transparent
             screen.blit(transparent_surface, (zone1_rect.left, zone1_rect.top))
         elif zone2_rect.collidepoint(pygame.mouse.get_pos()):
             transparent_surface = pygame.Surface((zone2_rect.width, zone2_rect.height), pygame.SRCALPHA)
-            transparent_surface.fill((0, 0, 255, 64))
+            transparent_surface.fill((0, 0, 255, 32))
             screen.blit(transparent_surface, (zone2_rect.left, zone2_rect.top))
         elif zone3_rect.collidepoint(pygame.mouse.get_pos()):
             transparent_surface = pygame.Surface((zone3_rect.width, zone3_rect.height), pygame.SRCALPHA)
-            transparent_surface.fill((0, 0, 255, 64))
+            transparent_surface.fill((0, 0, 255, 32))
             screen.blit(transparent_surface, (zone3_rect.left, zone3_rect.top))
         elif zone4_rect.collidepoint(pygame.mouse.get_pos()):
             transparent_surface = pygame.Surface((zone4_rect.width, zone4_rect.height), pygame.SRCALPHA)
-            transparent_surface.fill((0, 0, 255, 64))
+            transparent_surface.fill((0, 0, 255, 32))
             screen.blit(transparent_surface, (zone4_rect.left, zone4_rect.top))
         elif zone5_rect.collidepoint(pygame.mouse.get_pos()):
             transparent_surface = pygame.Surface((zone5_rect.width, zone5_rect.height), pygame.SRCALPHA)
-            transparent_surface.fill((255, 0, 0, 64))
+            transparent_surface.fill((255, 0, 0, 32))
             screen.blit(transparent_surface, (zone5_rect.left, zone5_rect.top))
     
     if game.pressed.get(pygame.K_LEFT) and game.player.rect.x > 0:
@@ -100,7 +100,6 @@ while running:
         elif event.type == pygame.QUIT or manual_quit:
             running = False
             pygame.quit()
-            menu
             # une touche pressée
         elif event.type == pygame.KEYDOWN:
             game.pressed[event.key] = True

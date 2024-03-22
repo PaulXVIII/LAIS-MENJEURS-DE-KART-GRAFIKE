@@ -6,6 +6,10 @@ from time import monotonic
 
 pygame.init()
 
+def draw_text(text, font, text_col, x, y):
+    img = font.render(text, True, text_col)
+    screen.blit(img, (x, y))
+
 def studio_fade_in(width, height):
     fade = pygame.Surface((width, height))
     fade.fill((0,0,0))
@@ -36,24 +40,30 @@ def menu_fade_in(width, height):
         fade.set_alpha(alpha)
         screen.blit(fade, (0,0))
         pygame.display.update()
-        pygame.time.delay(50)
+        pygame.time.delay(5)
 
+
+text_font = pygame.font.SysFont("Arial", 30)
+jingle = pygame.mixer.Sound("Assets\\studio\\jingle.wav")
 pygame.display.set_caption("Caesar Quest")
-icon = pygame.image.load("icon.jpg")
+icon = pygame.image.load("Assets\\icon.jpg")
 pygame.display.set_icon(icon)
 screen = pygame.display.set_mode((1280, 720))
-studio_screen = pygame.image.load("studiostrum.jpg")
+studio_screen = pygame.image.load("Assets\\studio\\studiostrum.jpg")
 studio_screen = pygame.transform.scale(studio_screen, (1280, 720))
-background = pygame.image.load("bg.jpg")
+background = pygame.image.load("Assets\\menu\\background.jpg")
 background = pygame.transform.scale(background, (1280, 720))
-menu = pygame.image.load("boutoniu.png")
-title = pygame.image.load("title.png")
+menu = pygame.image.load("Assets\\menu\\menu_buttons.png")
+title = pygame.image.load("Assets\\menu\\title.png")
+title = pygame.transform.scale(title, (500, 500))
 game = Game()
 x_bouton = (1280 - menu.get_width()) / 2
 y_bouton = (720 - menu.get_height()) / 2
 x_titre = (1280 - title.get_width()) / 2
-y_titre = (720 - title.get_height()) / 2 - 170
+y_titre = (720 - title.get_height()) / 2 - 350
 running = True
+leave_menu = False
+text_displayed = False
 
 zone1_rect = pygame.Rect(444, 257, 398, 37)
 zone2_rect = pygame.Rect(444, 306, 398, 37)
@@ -63,10 +73,11 @@ zone5_rect = pygame.Rect(649, 426, 193, 37)
 
 constante_de_pesanteur = 0.2
 vitesse_chute = 0
-leave_menu = False
+
 transparent_surface = pygame.Surface((1280, 720), pygame.SRCALPHA)
 transparent_surface.fill((0, 0, 5, 3))
 
+jingle.play()
 studio_fade_in(1280, 720)
 fade_out(1280, 720)
 
@@ -157,5 +168,8 @@ while running:
         menu.fill((0, 0, 0, 0))
         title.fill((0, 0, 0, 0))
         background.fill((0, 0, 0, 0))
+        draw_text("Nous sommes en 1701, après la victoire de Marik", text_font, (255, 255, 255), 200, 200)
+        text_displayed = True
+
 
     pygame.display.flip()
